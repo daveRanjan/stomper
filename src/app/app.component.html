@@ -9,6 +9,15 @@
   </div>
 
   <div class="row">
+    <label for="subscribe_message_btn" class="form-label">Subscription</label>
+
+    <div class="input-group mb-3">
+      <textarea class="form-control" placeholder="Provide Comma Seperated subscription channel names" aria-label="subscriptions" aria-describedby="button-addon2" [(ngModel)]="subscriptions"></textarea>
+      <button class="btn btn-info" type="button" id="subscribe_message_btn" (click)="subscribeToChannels()">Subscribe</button>
+    </div>
+  </div>
+
+  <div class="row">
     <label for="send_message_btn" class="form-label">Message</label>
 
     <div class="input-group mb-3">
@@ -20,7 +29,7 @@
   <div class="row">
     <label for="clear_messages_btn" class="form-label">Recieved Messages</label>
     <div class="input-group mb-3">
-      <button class="btn btn-red" type="button" id="clear_messages_btn">Clear Messages</button>
+      <button class="btn btn-danger" type="button" id="clear_messages_btn">Clear Messages</button>
     </div>
     <div class="input-group mb-3">
       <textarea rows=60 class="form-control" placeholder="Message" aria-label="Message" aria-describedby="button-addon2" [(ngModel)]="messages" readonly></textarea>
