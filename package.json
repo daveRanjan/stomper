@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-prod": "ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer",
+    "predeploy": "ng build",
+    "deploy": "aws s3 rm s3://stomper.com --recursive && aws s3 sync ./dist/stomper/ s3://stomper.com --acl public-read ",
+    "postdeploy": "echo 'Successfull';"
   },
   "private": true,
   "dependencies": {
