@@ -1,9 +1,7 @@
-import {Injectable} from '@angular/core';
 import * as StompJS from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import {BehaviorSubject} from 'rxjs';
 
-@Injectable()
 export class SocketService {
 
   public socketConnected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -43,6 +41,7 @@ export class SocketService {
       console.log(`Socket Connected Successfully`);
       this.isSocketConnected = true;
       this.socketConnected.next(true);
+      alert("Socket connected!!");
       // Do something, all subscribes must be done is this callback
       // This is needed because this will be executed after a (re)connect
     };
