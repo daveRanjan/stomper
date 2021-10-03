@@ -3,8 +3,8 @@
     <label for="server_url_connect_btn" class="form-label">Server URL</label>
 
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="http:// or https:// or ws:// or wss://" aria-label="server-url" aria-describedby="button-addon2">
-      <button class="btn btn-success" type="button" id="server_url_connect_btn">Connect</button>
+      <input type="text" class="form-control" placeholder="http:// or https:// or ws:// or wss://" aria-label="server-url" aria-describedby="button-addon2" [(ngModel)]="serverUrl">
+      <button class="btn btn-success" type="button" id="server_url_connect_btn" (click)="connectToServer()">Connect</button>
     </div>
   </div>
 
@@ -12,7 +12,7 @@
     <label for="send_message_btn" class="form-label">Message</label>
 
     <div class="input-group mb-3">
-      <textarea class="form-control" placeholder="Message" aria-label="Message" aria-describedby="button-addon2"></textarea>
+      <textarea class="form-control" placeholder="Message" aria-label="Message" aria-describedby="button-addon2" [(ngModel)]="message"></textarea>
       <button class="btn btn-info" type="button" id="send_message_btn">Send</button>
     </div>
   </div>
@@ -23,7 +23,7 @@
       <button class="btn btn-red" type="button" id="clear_messages_btn">Clear Messages</button>
     </div>
     <div class="input-group mb-3">
-      <textarea rows=60 class="form-control" placeholder="Message" aria-label="Message" aria-describedby="button-addon2" readonly></textarea>
+      <textarea rows=60 class="form-control" placeholder="Message" aria-label="Message" aria-describedby="button-addon2" [(ngModel)]="messages" readonly></textarea>
     </div>
   </div>
 </div>
