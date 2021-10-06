@@ -11,6 +11,7 @@ export class AppComponent {
   serverUrl = "";
   message = "";
   messages = "";
+  subscriptions: string = "";
   private socketService: SocketService | undefined;
 
   public AppComponent(){
@@ -22,7 +23,19 @@ export class AppComponent {
       alert("Invalid server url");
     }
 
-    this.socketService = new SocketService(this.serverUrl);
+    this.socketService = new SocketService(this.serverUrl, this.callbackWriteToMessages);
 
+  }
+
+  async subscribeToChannels() {
+    const waade = [];
+    for (const subscription of this.subscriptions.split(",")){
+        waade.push(this.socketService?.subscribe(subscription));
+    }
+    await Promise.all(waade);
+  }
+
+  callbackWriteToMessages = (message:any) => {
+    this.messages+="\n"+message;
   }
 }

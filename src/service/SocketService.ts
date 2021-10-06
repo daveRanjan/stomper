@@ -6,12 +6,13 @@ export class SocketService {
 
   public socketConnected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  private stompClient : any;
+  private stompClient: any;
   // private serverUrl = `${environment.wsBaseUrl}`;
 
   public isSocketConnected = false;
-
-  constructor(private serverUrl:string ) {
+  // public callback : Function = () => {};
+  constructor(private serverUrl: string, private callback: Function) {
+    // this.callback = callback;
     this.init();
   }
 
@@ -36,17 +37,15 @@ export class SocketService {
       heartbeatOutgoing: 4000
     });
 
-    this.stompClient.onConnect = () => {
-
+    this.stompClient.onConnect = (data: any) => {
       console.log(`Socket Connected Successfully`);
       this.isSocketConnected = true;
       this.socketConnected.next(true);
-      alert("Socket connected!!");
       // Do something, all subscribes must be done is this callback
       // This is needed because this will be executed after a (re)connect
     };
 
-    this.stompClient.onStompError = (frame: {headers: any, body: any}) => {
+    this.stompClient.onStompError = (frame: { headers: any, body: any }) => {
       // Will be invoked in case of error encountered at Broker
       // Bad login/passcode typically will cause an error
       // Complaint brokers will set `message` header with a brief message. Body may contain details.
@@ -55,11 +54,19 @@ export class SocketService {
       console.log('Additional details: ' + frame.body);
     };
 
+    this.stompClient.debug = (str: string) => {
+      this.callback(str);
+    }
+
     this.stompClient.activate();
   }
 
-  async subscribe(channelName: string, callback: any) {
-    return await this.stompClient.subscribe(channelName, callback);
+  async subscribe(channelName: string) {
+    return await this.stompClient.subscribe(channelName, this.formatMessage);
+  }
+
+  formatMessage(data:any){
+    this.callback(JSON.stringify(data))
   }
 
   unsubscribe(channelName: string) {
