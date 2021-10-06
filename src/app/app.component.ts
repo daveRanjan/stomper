@@ -38,4 +38,8 @@ export class AppComponent {
   callbackWriteToMessages = (message:any) => {
     this.messages+="\n"+message;
   }
+
+  clearMessages() {
+    this.messages="";
+  }
 }
