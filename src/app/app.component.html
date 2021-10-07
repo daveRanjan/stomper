@@ -21,8 +21,9 @@
     <label for="send_message_btn" class="form-label">Message</label>
 
     <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Channel Name" aria-label="server-url" aria-describedby="button-addon2" [(ngModel)]="messageChannelName">
       <textarea class="form-control" placeholder="Message" aria-label="Message" aria-describedby="button-addon2" [(ngModel)]="message"></textarea>
-      <button class="btn btn-info" type="button" id="send_message_btn">Send</button>
+      <button class="btn btn-info" type="button" id="send_message_btn" (click)="onSend()">Send</button>
     </div>
   </div>
 
