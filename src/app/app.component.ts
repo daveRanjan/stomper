@@ -12,6 +12,7 @@ export class AppComponent {
   message = "";
   messages = "";
   subscriptions: string = "";
+  messageChannelName: string = "";
   private socketService: SocketService | undefined;
 
   public AppComponent(){
@@ -41,5 +42,10 @@ export class AppComponent {
 
   clearMessages() {
     this.messages="";
+  }
+
+  onSend() {
+    console.log("Sending message ", this.message," to channel ", this.messageChannelName);
+    this.socketService?.send(this.messageChannelName, this.message)
   }
 }

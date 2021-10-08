@@ -6,7 +6,7 @@ export class SocketService {
 
   public socketConnected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  private stompClient: any;
+  private stompClient: StompJS.Client | undefined;
   // private serverUrl = `${environment.wsBaseUrl}`;
 
   public isSocketConnected = false;
@@ -62,14 +62,18 @@ export class SocketService {
   }
 
   async subscribe(channelName: string) {
-    return await this.stompClient.subscribe(channelName, this.formatMessage);
+    return await this.stompClient?.subscribe(channelName, this.formatMessage);
   }
 
   formatMessage(data:any){
     this.callback(JSON.stringify(data))
   }
 
+  async send(channelName:string, message:string){
+    return await this.stompClient?.publish({destination: channelName, body: message});
+  }
+
   unsubscribe(channelName: string) {
-    this.stompClient.unsubscribe(channelName);
+    this.stompClient?.unsubscribe(channelName);
   }
 }
