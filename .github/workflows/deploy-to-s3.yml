@@ -1,7 +1,7 @@
 name: Sync Bucket
 on:
   push:
-    branches: development
+    branches: main
 
 jobs:
   deploy:
